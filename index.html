@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edu Casanova - CV</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+                    },
+                },
+            },
+            plugins: [],
+        }
+    </script>
+    <style type="text/css">
+        @media print {
+            /* Custom print styles to ensure one-page layout */
+            html, body {
+                width: 210mm;
+                height: 297mm;
+                margin: 0;
+                padding: 0;
+                font-size: 8.7pt; /* Base print font size */
+                -webkit-print-color-adjust: exact;
+            }
+            .page-container {
+                max-width: 100% !important;
+                box-shadow: none !important;
+                margin: 0 !important;
+                border: none !important;
+            }
+            .main-column {
+                padding-left: 1.5rem !important;
+            }
+            .sidebar, .main-column {
+                padding-top: 0.5in;
+                padding-bottom: 0.5in;
+                padding-right: 0.5in;
+                padding-left: 0.5in;
+            }
+            .sidebar {
+                width: 30% !important;
+                background-color: #f9fafb !important;
+                padding-left: 0.7in;
+                padding-right: 0.35in;
+                height: 100%; /* Ensure sidebar takes full height */
+            }
+            .main-column {
+                 width: 70% !important;
+            }
+            .profile-image {
+                max-width: 170px !important;
+            }
+            .section-card {
+                 background-color: #ffffff !important;
+                 border: 1px solid #e5e7eb !important;
+                 box-shadow: none !important;
+                 page-break-inside: avoid !important;
+                 padding: 0.9rem !important;
+            }
+            .sidebar .section-card {
+                 padding: 0.5rem !important;
+                 margin-left: 0.5rem !important;
+                 margin-right: 0.5rem !important;
+            }
+            .work-item, .project-item {
+                 page-break-inside: avoid !important;
+                 margin-top: 0.7rem !important;
+            }
+            /* Add print styles for the grid */
+            .projects-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                gap: 0.7rem !important;
+            }
+            
+            /* === SPACER LOGIC UPDATED HERE === */
+            
+            /* General Sections */
+            section {
+                margin-top: 1.2rem !important; 
+                padding-left: 0.5rem !important;
+                padding-right: 0.5rem !important;
+                margin-left: 0.5rem !important;
+                margin-right: 0.5rem !important;
+            }
+
+            /* SIDEBAR SPECIFIC SPACING (The fix) */
+            .sidebar section {
+                /* Increased from 1.3rem to 2.2rem to create vertical gaps */
+                margin-top: 2.2rem !important; 
+            }
+            
+            /* Push the first section (Get in Touch) further down from the Profile Name */
+            .sidebar section:first-of-type {
+                 margin-top: 3rem !important; 
+            }
+
+            /* Adjust headers in sidebar to float slightly above content */
+            .sidebar h3 {
+                font-size: 1rem !important;
+                margin-bottom: 0.5rem !important; /* Increased space below headers */
+            }
+            
+            /* ================================= */
+
+            h2 {
+                font-size: 1.6rem !important;
+                 margin-bottom: 0.3rem !important;
+            }
+             hr {
+                margin-top: 0.3rem !important;
+                margin-bottom: 0.3rem !important;
+             }
+             ul.achievement-list {
+                 margin-top: 0.2rem !important;
+                 padding-left: 1.1rem !important;
+             }
+            /* Updated Tool Item Print Styles */
+             .tool-item {
+                 padding: 0.1rem !important;
+                 background-color: transparent !important;
+             }
+             .tool-item .flex { 
+                 align-items: center;
+             }
+             .tool-item img {
+                height: 0.9rem !important;
+                width: 0.9rem !important;
+                margin-right: 0.2rem !important;
+             }
+             .tool-item .tool-name {
+                font-size: 7pt !important;
+                line-height: 1.1 !important;
+             }
+             .tool-item .tool-level {
+                 font-size: 6.5pt !important;
+                 margin-top: 0.05rem !important; 
+                 line-height: 1 !important;
+             }
+             .tag-item {
+                 font-size: 7pt !important;
+                 padding-left: 0.5rem !important;
+                 padding-right: 0.5rem !important;
+                 padding-top: 0.1rem !important;
+                 padding-bottom: 0.1rem !important;
+             }
+             
+             .sidebar .text-xs, .main-column .text-xs {
+                 font-size: 8pt !important;
+             }
+             .sidebar .text-sm, .main-column .text-sm {
+                 font-size: 9pt !important;
+             }
+              .sidebar .text-base, .main-column .text-base {
+                 font-size: 9pt !important;
+             }
+              .sidebar .text-lg, .main-column .text-lg {
+                 font-size: 10pt !important;
+             }
+
+
+            a {
+                text-decoration: none;
+                color: #000000;
+            }
+
+            a.print-url[href^="http"]::after {
+                content: "";
+            }
+            a.print-url[href^="mailto"]::after {
+                content: "";
+            }
+
+            .achievement-list {
+                list-style-type: disc !important;
+                padding-left: 1.25rem !important;
+                margin-top: 0.5rem !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 font-sans print:bg-white">
+
+    <div class="page-container container mx-auto my-12 max-w-6xl rounded-xl border border-gray-200 bg-white shadow-2xl print:my-0 print:max-w-full print:rounded-none print:border-none print:shadow-none">
+        <div class="flex flex-col md:flex-row print:flex-row">
+
+            <aside class="sidebar w-full md:w-1/4 rounded-l-xl bg-gray-50 p-5 print:p-0 print:w-1/4 print:bg-gray-50"> 
+
+                <div class="flex justify-center pt-4 print:pt-0">
+                    <img 
+                        src="IMG_0030.jpg" 
+                        alt="Edu Casanova" 
+                        class="profile-image w-40 h-40 rounded-full object-cover shadow-md print:w-36 print:h-36"
+                        onerror="this.src='https://placehold.co/160x160/E0E7FF/4F46E5?text=Edu'; this.onerror=null;"
+                    >
+                </div>
+
+                <h2 class="mt-6 text-center text-xl font-bold text-gray-800 print:text-lg">Edu Casanova</h2>
+                <p class="mt-1 text-center text-md font-medium text-blue-600 print:text-sm">Ops & Customer Excellence Manager</p>
+
+                <section class="mt-10"> 
+                    <h3 class="text-md font-semibold uppercase tracking-wider text-gray-700 print:text-sm">Get in Touch</h3>
+                    <div class="mt-3 space-y-2 print:mt-2 print:space-y-1.5">
+                        <a href="mailto:casanovaeduard@gmail.com" class="print-url group flex items-center print:!text-black">
+                            <svg class="h-4 w-4 flex-shrink-0 text-gray-500 group-hover:text-blue-600 print:h-3.5 print:w-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                            </svg>
+                            <span class="ml-2 text-xs text-gray-700 group-hover:text-blue-600 break-words print:text-[8pt] print:ml-1.5">casanovaeduard@gmail.com</span>
+                        </a>
+                        <div class="group flex items-center">
+                            <svg class="h-4 w-4 flex-shrink-0 text-gray-500 print:h-3.5 print:w-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.211-.998-.552-1.33l-2.933-2.933a2.25 2.25 0 00-3.182 0l-.966.966c-1.031-.51-1.954-1.12-2.8-1.78a14.93 14.93 0 01-3.21-3.21c-.66-1.048-1.27-2.113-1.78-3.21l.966-.966a2.25 2.25 0 000-3.182L5.58 3.052a2.25 2.25 0 00-1.33-.552H2.25A2.25 2.25 0 000 4.725v2.025z" />
+                            </svg>
+                            <span class="ml-2 text-xs text-gray-700 print:text-[8pt] print:ml-1.5">+34 663 365 367</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="mt-8">
+                    <h3 class="text-md font-semibold uppercase tracking-wider text-gray-700 print:text-sm">Links</h3>
+                    <div class="mt-3 space-y-2 print:mt-2 print:space-y-1.5">
+                        <a href="http://linkedin.com/in/edcasanova" target="_blank" rel="noopener noreferrer" class="print-url group flex items-center print:!text-black">
+                             <svg class="h-4 w-4 flex-shrink-0 text-gray-500 group-hover:text-blue-600 print:h-3.5 print:w-3.5" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/>
+                            </svg>
+                            <span class="ml-2 text-xs text-gray-700 group-hover:text-blue-600 break-words print:text-[8pt] print:ml-1.5">linkedin.com/in/edcasanova</span>
+                        </a>
+                        <a href="https://github.com/casanovaedu" target="_blank" rel="noopener noreferrer" class="print-url group flex items-center print:!text-black">
+                            <svg class="h-4 w-4 flex-shrink-0 text-gray-500 group-hover:text-blue-600 print:h-3.5 print:w-3.5" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                                <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+                            </svg>
+                            <span class="ml-2 text-xs text-gray-700 group-hover:text-blue-600 break-words print:text-[8pt] print:ml-1.5">github.com/casanovaedu</span>
+                        </a>
+                    </div>
+                </section>
+
+                <section class="mt-8">
+                    <h3 class="text-md font-semibold uppercase tracking-wider text-gray-700 print:text-sm">Education</h3>
+                    <div class="mt-3 space-y-3 print:mt-2 print:space-y-2">
+                        <div class="section-card rounded-lg border bg-white p-3 shadow-sm print:p-2 print:border-gray-300">
+                            <h4 class="font-semibold text-sm text-gray-800 print:text-xs">MsC in Financial Management & Auditing</h4>
+                            <p class="text-xs text-gray-600 print:text-[7.5pt]">Barcelona School of Management</p>
+                        </div>
+                        <div class="section-card rounded-lg border bg-white p-3 shadow-sm print:p-2 print:border-gray-300">
+                            <h4 class="font-semibold text-sm text-gray-800 print:text-xs">BSc in International Business Economics</h4>
+                            <p class="text-xs text-gray-600 print:text-[7.5pt]">Universitat Pompeu Fabra</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="mt-8">
+                    <h3 class="text-md font-semibold uppercase tracking-wider text-gray-700 print:text-sm">Certifications</h3>
+                    <div class="mt-3 print:mt-2">
+                        <div class="section-card rounded-lg border bg-white p-3 shadow-sm print:p-2 print:border-gray-300"> 
+                            <h4 class="font-semibold text-sm text-gray-800 print:text-xs">Associate Data Engineer in SQL</h4>
+                            <p class="text-xs text-gray-600 print:text-[7.5pt]"><em>By DataCamp</em></p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="mt-8"> 
+                    <h3 class="text-md font-semibold uppercase tracking-wider text-gray-700 print:text-sm">Core Competencies</h3>
+                    <div class="mt-2 flex flex-wrap gap-1.5 print:mt-1.5">
+                        <span class="rounded-lg bg-gray-200 px-2.5 py-0.5 text-xs font-medium text-gray-800 print:text-[7.5pt]">Process Design</span>
+                        <span class="rounded-lg bg-gray-200 px-2.5 py-0.5 text-xs font-medium text-gray-800 print:text-[7.5pt]">Data Analysis</span>
+                        <span class="rounded-lg bg-gray-200 px-2.5 py-0.5 text-xs font-medium text-gray-800 print:text-[7.5pt]">Operations Management</span>
+                        <span class="rounded-lg bg-gray-200 px-2.5 py-0.5 text-xs font-medium text-gray-800 print:text-[7.5pt]">Forecasting</span>
+                        <span class="rounded-lg bg-gray-200 px-2.5 py-0.5 text-xs font-medium text-gray-800 print:text-[7.5pt]">Customer Experience</span>
+                        <span class="rounded-lg bg-gray-200 px-2.5 py-0.5 text-xs font-medium text-gray-800 print:text-[7.5pt]">Perf. Tracking</span>
+                    </div>
+
+                    <h3 class="mt-8 text-md font-semibold uppercase tracking-wider text-gray-700 print:mt-5 print:text-sm">Technologies</h3> 
+                    <div class="mt-3 grid grid-cols-2 gap-x-3 gap-y-2.5 print:mt-2 print:gap-x-2 print:gap-y-2">
+
+                        <div class="tool-item rounded-lg border p-2 shadow-sm print:border-gray-300 print:p-1.5"> 
+                            <div class="flex items-center">
+                                <img src="Tools/Excel Google Sheets/excel.png" alt="Excel/Sheets Logo" class="h-4 w-4 object-contain flex-shrink-0 print:h-3.5 print:w-3.5" onerror="this.src='https://placehold.co/16x16/E0E7FF/4F46E5?text=XLS'; this.onerror=null;">
+                                <span class="tool-name ml-1.5 text-[10px] font-medium text-gray-800 leading-tight print:text-[7pt]">Excel / GSheets</span>
+                            </div>
+                            <span class="tool-level block text-[9px] font-semibold text-green-600 leading-tight mt-0.5 print:text-[6.5pt]">Expert</span>
+                        </div>
+
+                        <div class="tool-item rounded-lg border p-2 shadow-sm print:border-gray-300 print:p-1.5"> 
+                            <div class="flex items-center">
+                                <img src="Tools/Jira Confluence/jira.svg" alt="Jira/Confluence Logo" class="h-4 w-4 object-contain flex-shrink-0 print:h-3.5 print:w-3.5" onerror="this.src='https://placehold.co/16x16/E0E7FF/4F46E5?text=Jira'; this.onerror=null;">
+                                <span class="tool-name ml-1.5 text-[10px] font-medium text-gray-800 leading-tight print:text-[7pt]">Jira / Confluence</span>
+                            </div>
+                            <span class="tool-level block text-[9px] font-semibold text-green-600 leading-tight mt-0.5 print:text-[6.5pt]">Expert</span>
+                        </div>
+
+                        <div class="tool-item rounded-lg border p-2 shadow-sm print:border-gray-300 print:p-1.5"> 
+                            <div class="flex items-center">
+                                <img src="Tools/Looker BI tools/looker.svg" alt="Looker Logo" class="h-4 w-4 object-contain flex-shrink-0 print:h-3.5 print:w-3.5" onerror="this.src='https://placehold.co/16x16/E0E7FF/4F46E5?text=BI'; this.onerror=null;">
+                                <span class="tool-name ml-1.5 text-[10px] font-medium text-gray-800 leading-tight print:text-[7pt]">Looker / BI Tools</span>
+                            </div>
+                            <span class="tool-level block text-[9px] font-semibold text-yellow-600 leading-tight mt-0.5 print:text-[6.5pt]">Advanced</span>
+                        </div>
+
+                        <div class="tool-item rounded-lg border p-2 shadow-sm print:border-gray-300 print:p-1.5"> 
+                            <div class="flex items-center">
+                                <img src="Tools/figma.png" alt="Figma Logo" class="h-4 w-4 object-contain flex-shrink-0 print:h-3.5 print:w-3.5" onerror="this.src='https://placehold.co/16x16/E0E7FF/4F46E5?text=Fig'; this.onerror=null;">
+                                <span class="tool-name ml-1.5 text-[10px] font-medium text-gray-800 leading-tight print:text-[7pt]">Figma</span>
+                            </div>
+                            <span class="tool-level block text-[9px] font-semibold text-blue-600 leading-tight mt-0.5 print:text-[6.5pt]">Intermediate</span>
+                        </div>
+
+                         <div class="tool-item rounded-lg border p-2 shadow-sm print:border-gray-300 print:p-1.5"> 
+                            <div class="flex items-center">
+                                <img src="Tools/photoshop icon.png" alt="Photoshop Logo" class="h-4 w-4 object-contain flex-shrink-0 print:h-3.5 print:w-3.5" onerror="this.src='https://placehold.co/16x16/E0E7FF/4F46E5?text=Ps'; this.onerror=null;">
+                                <span class="tool-name ml-1.5 text-[10px] font-medium text-gray-800 leading-tight print:text-[7pt]">Photoshop</span>
+                            </div>
+                            <span class="tool-level block text-[9px] font-semibold text-blue-600 leading-tight mt-0.5 print:text-[6.5pt]">Intermediate</span>
+                        </div>
+
+                        <div class="tool-item rounded-lg border p-2 shadow-sm print:border-gray-300 print:p-1.5"> 
+                            <div class="flex items-center">
+                                <img src="Tools/Gemini AI agents/gemini-color.png" alt="Gemini Logo" class="h-4 w-4 object-contain flex-shrink-0 print:h-3.5 print:w-3.5" onerror="this.src='https://placehold.co/16x16/E0E7FF/4F46E5?text=AI'; this.onerror=null;">
+                                <span class="tool-name ml-1.5 text-[10px] font-medium text-gray-800 leading-tight print:text-[7pt]">Gemini / AI Agents</span>
+                            </div>
+                            <span class="tool-level block text-[9px] font-semibold text-blue-600 leading-tight mt-0.5 print:text-[6.5pt]">Intermediate</span>
+                        </div>
+
+                        <div class="tool-item rounded-lg border p-2 shadow-sm print:border-gray-300 print:p-1.5"> 
+                            <div class="flex items-center">
+                                <img src="Tools/SQL/database.jpg" alt="SQL Logo" class="h-4 w-4 object-contain rounded flex-shrink-0 print:h-3.5 print:w-3.5" onerror="this.src='https://placehold.co/16x16/E0E7FF/4F46E5?text=SQL'; this.onerror=null;">
+                                <span class="tool-name ml-1.5 text-[10px] font-medium text-gray-800 leading-tight print:text-[7pt]">SQL</span>
+                            </div>
+                            <span class="tool-level block text-[9px] font-semibold text-orange-600 leading-tight mt-0.5 print:text-[6.5pt]">Beginner</span>
+                        </div>
+
+                        <div class="tool-item rounded-lg border p-2 shadow-sm print:border-gray-300 print:p-1.5"> 
+                            <div class="flex items-center">
+                                <img src="Tools/Python/python.png" alt="Python Logo" class="h-4 w-4 object-contain flex-shrink-0 print:h-3.5 print:w-3.5" onerror="this.src='https://placehold.co/16x16/E0E7FF/4F46E5?text=Py'; this.onerror=null;">
+                                <span class="tool-name ml-1.5 text-[10px] font-medium text-gray-800 leading-tight print:text-[7pt]">Python</span>
+                            </div>
+                            <span class="tool-level block text-[9px] font-semibold text-orange-600 leading-tight mt-0.5 print:text-[6.5pt]">Beginner</span>
+                        </div>
+                        
+                        <div class="tool-item rounded-lg border p-2 shadow-sm print:border-gray-300 print:p-1.5"> 
+                            <div class="flex items-center">
+                                <img src="Tools/n8n.webp" alt="n8n Logo" class="h-4 w-4 object-contain flex-shrink-0 print:h-3.5 print:w-3.5" onerror="this.src='https://placehold.co/16x16/E0E7FF/4F46E5?text=n8n'; this.onerror=null;">
+                                
+                                <span class="tool-name ml-1.5 text-[10px] font-medium text-gray-800 leading-tight print:text-[7pt]">Automation</span>
+                            </div>
+                            <span class="tool-level block text-[9px] font-semibold text-orange-600 leading-tight mt-0.5 print:text-[6.5pt]">Beginner</span>
+                        </div>
+                    </div>
+                </section>
+
+                 <section class="mt-8" id="hobbies-section"> 
+                    <h3 class="text-md font-semibold uppercase tracking-wider text-gray-700 print:text-sm">Hobbies</h3>
+                    <div class="mt-3 flex flex-wrap gap-1.5 print:mt-2">
+                        <span class="rounded-full bg-gray-200 px-2.5 py-0.5 text-xs font-medium text-gray-700 print:text-[7.5pt]">Reading</span>
+                        <span class="rounded-full bg-gray-200 px-2.5 py-0.5 text-xs font-medium text-gray-700 print:text-[7.5pt]">Photography</span>
+                        <span class="rounded-full bg-gray-200 px-2.5 py-0.5 text-xs font-medium text-gray-700 print:text-[7.5pt]">Mountaineering</span>
+                        <span class="rounded-full bg-gray-200 px-2.5 py-0.5 text-xs font-medium text-gray-700 print:text-[7.5pt]">Running</span>
+                        <span class="rounded-full bg-gray-200 px-2.5 py-0.5 text-xs font-medium text-gray-700 print:text-[7.5pt]">Crossfit</span>
+                        <span class="rounded-full bg-gray-200 px-2.5 py-0.5 text-xs font-medium text-gray-700 print:text-[7.5pt]">Painting</span>
+                    </div>
+                </section>
+
+            </aside>
+
+            <main class="main-column w-full md:w-3/4 p-8 print:p-0 print:w-3/4">
+
+                <section>
+                    <h2 class="text-3xl font-bold text-gray-800 print:text-2xl">Professional Summary</h2> 
+                    <hr class="my-4 border-t-2 border-gray-200 print:my-3">
+                    <div class="space-y-3 text-sm text-gray-700 print:space-y-3 print:text-sm"> 
+                        <p>
+                            <strong class="font-semibold">Strategic Program Leader</strong> with 6+ years of experience in <strong class="font-semibold">architecting and managing high-value programs</strong> accross Operations, Product and Customer Experience. Proven ability to solve complex operational problems and deliver improvements that matter to both customers and the business.
+                        </p>
+                        <p>
+                           Strong track record in designing clear processes, reducing unnecessary work, and improving performance using data and structured decision making. I build <strong class="font-semibold"> systems that scale, increase profitability  without sacrificing quality, and create predictable execution</strong> accross teams.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="mt-6 print:mt-8"> 
+                    <h2 class="text-3xl font-bold text-gray-800 print:text-2xl">Work Experience</h2>
+                    <hr class="my-4 border-t-2 border-gray-200 print:my-3">
+                    <div class="space-y-3 print:space-y-5"> 
+
+                        <div class="work-item section-card rounded-lg border bg-white p-4 shadow-sm print:p-5 print:border-gray-300"> 
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-lg font-semibold text-gray-800 print:text-lg"> Operations & Customer Excellenge Manager</h3> 
+                                <a href="https://www.exoticca.com" target="_blank" rel="noopener noreferrer" class="logo-link">
+                                    <img src="Tools/exoticca.png" alt="Exoticca Logo" class="h-7 object-contain print:h-7" onerror="this.src='https://placehold.co/100x28/E0E7FF/4F46E5?text=Exoticca'; this.onerror=null;"> 
+                                </a>
+                            </div>
+                            <div class="flex justify-between text-sm font-medium text-blue-600 print:text-sm"> 
+                                <span>Exoticca</span>
+                                <span class="font-normal text-gray-600">Jan 2025 - Present</span>
+                            </div>
+                            <p class="mt-2 text-sm text-gray-700 print:text-sm">Lead the <strong class="font-semibold">Customer Excellence department</strong>, translating client insights into <strong class="font-semibold">scalable processes</strong> that boost satisfaction and reduce dependency on manual interventions.</p> 
+                            <ul class="achievement-list mt-3 ml-5 list-disc space-y-1.5 text-sm text-gray-700 print:ml-4 print:text-sm print:space-y-1"> 
+                                <li>Delivered impactful <strong class="font-semibold">customer experience improvements</strong>, sustaining a <strong class="font-semibold">40% Net Promoter Score (NPS)</strong> across <strong class="font-semibold">45,000+ annual trips</strong> in <strong class="font-semibold">40+ destinations globally</strong>.</li>
+                                <li>Drove <strong class="font-semibold">Go-to-Market (GTM) strategy</strong> for key initiatives, including the <strong class="font-semibold">LATAM market launch</strong> (w/ Despegar) and a <strong class="font-semibold">payment infrastructure revamp (~€2.5M annual savings)</strong>.</li>
+                                <li>Managed <strong class="font-semibold">transformational AI projects</strong>, including linking NPS to revenue (~€8M per 10 points) and an <strong class="font-semibold">AI predictive model</strong> (25% satisfaction improvement).</li>
+                                <li>Served as the <strong class="font-semibold">strategic owner</strong> for an in-house provider management platform used by <strong class="font-semibold">100+ global partners</strong> to manage bookings at scale.</li>
+                            </ul>
+                        </div>
+
+                        <div class="work-item section-card rounded-lg border bg-white p-4 shadow-sm print:p-5 print:border-gray-300"> 
+                             <div class="flex items-center justify-between">
+                                <h3 class="text-lg font-semibold text-gray-800 print:text-lg">Operations Analyst - Business Excellence</h3> 
+                                <a href="https://www.exoticca.com" target="_blank" rel="noopener noreferrer" class="logo-link">
+                                    <img src="Tools/exoticca.png" alt="Exoticca Logo" class="h-7 object-contain print:h-7" onerror="this.src='https://placehold.co/100x28/E0E7FF/4F46E5?text=Exoticca'; this.onerror=null;"> 
+                                </a>
+                            </div>
+                            <div class="flex justify-between text-sm font-medium text-blue-600 print:text-sm"> 
+                                <span>Exoticca</span>
+                                <span class="font-normal text-gray-600">May 2022 – Jan 2025</span>
+                            </div>
+                            <ul class="achievement-list mt-3 ml-5 list-disc space-y-1.5 text-sm text-gray-700 print:ml-4 print:text-sm print:space-y-1"> 
+                                <li>Delivered over <strong class="font-semibold">20 high-impact projects</strong> across Sales, Product, Finance, and Marketing to <strong class="font-semibold">connect department goals</strong> and improve operational efficiency.</li>
+                                <li>Led a <strong class="font-semibold">cost-reduction initiative</strong> optimizing flight purchasing, resulting in a <strong class="font-semibold">€900,000 (~$1M) annual improvement</strong>.</li>
+                            </ul>
+                        </div>
+
+                        <div class="work-item section-card rounded-lg border bg-white p-4 shadow-sm print:p-5 print:border-gray-300"> 
+                             <div class="flex items-center justify-between">
+                                <h3 class="text-lg font-semibold text-gray-800 print:text-lg">Senior Audit Associate</h3> 
+                                <a href="https://www.pwc.com" target="_blank" rel="noopener noreferrer" class="logo-link">
+                                    <img src="Tools/PwC_Company_Logo.png" alt="PwC Logo" class="h-7 object-contain print:h-7" onerror="this.src='https://placehold.co/100x28/E0E7FF/4F46E5?text=PwC'; this.onerror=null;"> 
+                                </a>
+                            </div>
+                            <div class="flex justify-between text-sm font-medium text-blue-600 print:text-sm"> 
+                                <span>PriceWaterhouseCoopers</span>
+                                <span class="font-normal text-gray-600">Sep 2019 - May 2022</span>
+                            </div>
+                            <p class="mt-2 text-sm text-gray-700 print:text-sm"> 
+                                Conducted complex <strong class="font-semibold">financial audits</strong> for diverse clients, assessed <strong class="font-semibold">operational and financial risks</strong>, and ensured compliance with regulatory standards. Provided actionable insights to improve client processes.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                 <section class="mt-6 print:mt-8"> 
+                    <h2 class="text-3xl font-bold text-gray-800 print:text-2xl">Operations & AI Projects</h2> 
+                    <hr class="my-4 border-t-2 border-gray-200 print:my-3">
+                    <div class="projects-grid grid grid-cols-1 md:grid-cols-2 gap-3 print:grid-cols-2"> 
+
+                        <div class="project-item section-card rounded-lg border bg-white p-4 shadow-sm print:p-5 print:border-gray-300"> 
+                            <div class="flex flex-wrap items-center justify-between gap-y-1">
+                                <h3 class="text-lg font-semibold text-gray-800 print:text-lg">AI Customer Experience Analyzer</h3> 
+                                <div class="project-link flex-shrink-0">
+                                    <a href="https://github.com/casanovaedu/AI-Customer-Experience-Analyzer" target="_blank" rel="noopener noreferrer" class="text-sm font-medium text-blue-600 hover:underline print:text-xs">
+                                        GitHub Repo &rarr;
+                                    </a>
+                                </div>
+                            </div>
+                            <p class="mt-2 text-sm text-gray-700 print:text-sm print:mt-1.5"> 
+                                Developed an interactive web app using <strong class="font-semibold">NLP libraries </strong> to analyze unstructured customer feedback, generating a <strong class="font-semibold">strategic dashboard</strong> to identify root causes for market-specific NPS gaps.</p>
+                           <div class="mt-3 flex flex-wrap gap-2 print:mt-3"> 
+                                <span class="tag-item rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-800 print:px-2.5 print:py-0.5 print:text-[8pt]">AI Project</span>
+                                <span class="tag-item rounded-full bg-yellow-100 px-3 py-1 text-xs font-medium text-yellow-800 print:px-2.5 print:py-0.5 print:text-[8pt]">NPS</span>
+                                <span class="tag-item rounded-full bg-purple-100 px-3 py-1 text-xs font-medium text-purple-800 print:px-2.5 print:py-0.5 print:text-[8pt]">Python</span>
+                            </div>
+                        </div>
+
+                        <div class="project-item section-card rounded-lg border bg-white p-4 shadow-sm print:p-5 print:border-gray-300"> 
+                            <div class="flex flex-wrap items-center justify-between gap-y-1">
+                                <h3 class="text-lg font-semibold text-gray-800 print:text-lg">NPS in-App</h3> 
+                                 <div class="project-link flex-shrink-0">
+                                    <a href="https://github.com/casanovaedu/nps-mockup" target="_blank" rel="noopener noreferrer" class="text-sm font-medium text-blue-600 hover:underline print:text-xs">
+                                        GitHub Repo &rarr;
+                                    </a>
+                                </div>
+                            </div>
+                            <p class="mt-2 text-sm text-gray-700 print:text-sm print:mt-1.5"> 
+                                Created an interactive <strong class="font-semibold">HTML/CSS/JS mock-up</strong> visualizing a dynamic <strong class="font-semibold">in-app NPS survey</strong>, including logic for integration with email journeys for Exoticca's mobile app.</p>
+                            <div class="mt-3 flex flex-wrap gap-2 print:mt-3"> 
+                                <span class="tag-item rounded-full bg-pink-100 px-3 py-1 text-xs font-medium text-pink-800 print:px-2.5 print:py-0.5 print:text-[8pt]">CSS</span>
+                                <span class="tag-item rounded-full bg-orange-100 px-3 py-1 text-xs font-medium text-orange-800 print:px-2.5 print:py-0.5 print:text-[8pt]">HTML</span>
+                                <span class="tag-item rounded-full bg-yellow-100 px-3 py-1 text-xs font-medium text-yellow-800 print:px-2.5 print:py-0.5 print:text-[8pt]">Javascript</span>
+                                <span class="tag-item rounded-full bg-yellow-100 px-3 py-1 text-xs font-medium text-yellow-800 print:px-2.5 print:py-0.5 print:text-[8pt]">NPS</span>
+                            </div>
+                        </div>
+
+                        <div class="project-item section-card rounded-lg border bg-white p-4 shadow-sm print:p-5 print:border-gray-300"> 
+                            <div class="flex flex-wrap items-center justify-between gap-y-1">
+                                <h3 class="text-lg font-semibold text-gray-800 print:text-lg">Trustpilot Scraper & Analyzer</h3> 
+                                 <div class="project-link flex-shrink-0">
+                                    <a href="https://github.com/casanovaedu/trustpilot-analysis" target="_blank" rel="noopener noreferrer" class="text-sm font-medium text-blue-600 hover:underline print:text-xs">
+                                        GitHub Repo &rarr;
+                                    </a>
+                                </div>
+                            </div>
+                            <p class="mt-2 text-sm text-gray-700 print:text-sm print:mt-1.5"> 
+                                Built a tool to <strong class="font-semibold">scrape, analyze, and tag</strong> Trustpilot reviews using <strong class="font-semibold">NLP</strong> to understand customer issues related to T&Cs, allowing <strong class="font-semibold">data-driven policy changes</strong>.</p>
+                            <div class="mt-3 flex flex-wrap gap-2 print:mt-3"> 
+                                <span class="tag-item rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-800 print:px-2.5 print:py-0.5 print:text-[8pt]">AI Project</span>
+                                <span class="tag-item rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-800 print:px-2.5 print:py-0.5 print:text-[8pt]">Customer Experience</span>
+                                <span class="tag-item rounded-full bg-purple-100 px-3 py-1 text-xs font-medium text-purple-800 print:px-2.5 print:py-0.5 print:text-[8pt]">Python</span>
+                            </div>
+                        </div>
+
+                        <div class="project-item section-card rounded-lg border bg-white p-4 shadow-sm print:p-5 print:border-gray-300">
+                            <div class="flex flex-wrap items-center justify-between gap-y-1">
+                                <h3 class="text-lg font-semibold text-gray-800 print:text-lg">Document builder in PMS</h3>
+                                 <div class="project-link flex-shrink-0">
+                                    <a href="https://github.com/casanovaedu/providers-platform" target="_blank" rel="noopener noreferrer" class="text-sm font-medium text-blue-600 hover:underline print:text-xs"> 
+                                        GitHub Repo &rarr;
+                                    </a>
+                                </div>
+                            </div>
+                            <p class="mt-2 text-sm text-gray-700 print:text-sm print:mt-1.5">
+                                Architected and deployed a document generation tool within the core PMS, automating the creation and delivery of all traveler-facing documentation. 
+                            </p>
+                            <div class="mt-3 flex flex-wrap gap-2 print:mt-3">
+                                <span class="tag-item rounded-full bg-red-100 px-3 py-1 text-xs font-medium text-red-800 print:px-2.5 print:py-0.5 print:text-[8pt]">Automation</span>
+                                <span class="tag-item rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-800 print:px-2.5 print:py-0.5 print:text-[8pt]">Customer Experience</span>
+                                <span class="tag-item rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-800 print:px-2.5 print:py-0.5 print:text-[8pt]">System Integration</span> 
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+            </main>
+        </div>
+    </div>
+</body>
+</html>
