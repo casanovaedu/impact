@@ -6,144 +6,536 @@
     <title>Edu Casanova | Operational Impact Report</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        body { 
+            font-family: 'Inter', sans-serif; 
+            /* Light/Titanium Background */
+            background-color: #f4f4f5; /* Zinc 100 */
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(255,255,255,0.8) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(228, 228, 231, 0.5) 0px, transparent 50%);
+            color: #18181b; /* Zinc 900 */
         }
+        
+        /* Apple-style Frosted Glass (Light Mode) */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 
+                0 4px 6px -1px rgba(0, 0, 0, 0.05),
+                0 2px 4px -1px rgba(0, 0, 0, 0.03),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Titanium Gradient Text */
         .gradient-text {
-            background: linear-gradient(135deg, #60A5FA 0%, #A78BFA 100%);
+            background: linear-gradient(135deg, #18181b 0%, #71717a 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .metric-card:hover {
-            transform: translateY(-5px);
-            border-color: #60A5FA;
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
         }
+        
+        .metric-card:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.85);
+            border-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Animation for Modal */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes scaleIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .modal-animate { animation: fadeIn 0.2s ease-out; }
+        .modal-content-animate { animation: scaleIn 0.2s ease-out; }
+        
+        /* Language Active State */
+        .lang-active { opacity: 1; font-weight: bold; filter: grayscale(0%); }
+        .lang-inactive { opacity: 0.4; filter: grayscale(100%); }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen">
+<body class="min-h-screen selection:bg-zinc-900 selection:text-white">
 
     <!-- Navigation / Header -->
-    <nav class="max-w-5xl mx-auto px-6 py-6 flex justify-between items-center">
-        <div class="text-xl font-bold tracking-tighter">EDU <span class="text-blue-400">CASANOVA</span></div>
-        <div class="text-sm text-slate-400 font-mono hidden sm:block">STATUS: OPEN TO OPPORTUNITIES</div>
-        <a href="mailto:casanovaeduard@gmail.com" class="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2 rounded-full text-sm font-medium transition-colors">
-            Hire This Asset
-        </a>
+    <nav class="max-w-5xl mx-auto px-6 py-6 flex justify-between items-center relative z-10">
+        <div class="text-lg font-bold tracking-tight text-zinc-900">EDU <span class="text-zinc-400">CASANOVA</span></div>
+        <div class="flex items-center gap-4">
+            <!-- Dynamic Status Indicator -->
+            <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-white/50 border border-zinc-200 rounded-full backdrop-blur-sm">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                <span class="text-[10px] font-bold tracking-wider text-zinc-600 uppercase" data-i18n="location">Barcelona (Hybrid) • Remote • Open to Relocation</span>
+            </div>
+            
+            <!-- Language Toggle with Flags -->
+            <button onclick="toggleLanguage()" class="bg-white hover:bg-zinc-100 text-zinc-800 px-3 py-1.5 rounded-lg text-lg border border-zinc-200 transition-all shadow-sm hover:shadow flex gap-2">
+                <span id="flag-en" class="lang-active transition-all">🇬🇧</span>
+                <span class="text-zinc-300 text-xs self-center">|</span>
+                <span id="flag-es" class="lang-inactive transition-all">🇪🇸</span>
+            </button>
+
+            <!-- Contact Button -->
+            <button onclick="openContactModal()" class="bg-zinc-900 hover:bg-zinc-800 text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all shadow-lg hover:shadow-xl" data-i18n="contactBtn">
+                Contact Me
+            </button>
+        </div>
     </nav>
 
-    <main class="max-w-5xl mx-auto px-6 py-12">
+    <main class="max-w-5xl mx-auto px-6 py-12 relative z-0">
         
         <!-- Hero Section -->
         <div class="max-w-4xl mx-auto text-center mb-24 mt-12">
-            <div class="inline-block px-3 py-1 mb-6 text-xs font-semibold tracking-wider text-blue-300 uppercase bg-blue-900/30 rounded-full border border-blue-800">
-                Not a Standard Cover Letter
+            <div class="inline-flex items-center gap-2 px-3 py-1 mb-8 text-[10px] font-bold tracking-[0.2em] text-zinc-500 uppercase bg-white/50 rounded-full border border-zinc-200 backdrop-blur-md shadow-sm">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span data-i18n="heroBadge">Operational Strategy</span>
             </div>
-            <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-8">
-                I don't just manage operations. <br>
-                <span class="gradient-text">I engineer scalability.</span>
+            <h1 class="text-5xl md:text-7xl font-bold leading-tight mb-8 tracking-tight text-zinc-900">
+                <span data-i18n="heroTitle1">I turn ambiguity into</span> <br>
+                <span class="gradient-text" data-i18n="heroTitle2">recurring revenue.</span>
             </h1>
-            <p class="text-xl text-slate-400 mb-10 leading-relaxed max-w-2xl mx-auto">
-                Most Operations Managers report on the chaos. I build the systems that eliminate it. 
-                With a background in <strong>Audit (PwC)</strong> and <strong>Tech Ops (Exoticca)</strong>, 
-                I bridge the gap between financial rigour and AI-driven efficiency.
+            <p class="text-xl text-zinc-600 mb-10 leading-relaxed max-w-3xl mx-auto font-light">
+                <span data-i18n="heroDesc1">I was a pivotal part of Exoticca's scale-up success. Now, I combine that</span> <strong data-i18n="heroDescBold1">Operational Strategy</strong>
+                <span data-i18n="heroDesc2">with</span> <strong data-i18n="heroDescBold2">Financial Rigour</strong> <span data-i18n="heroDesc3">(ex-PwC) to build</span> <strong data-i18n="heroDescBold3">scalable engines</strong> <span data-i18n="heroDesc4">that transform chaos into predictable growth.</span>
             </p>
             <div class="flex flex-wrap justify-center gap-4">
-                <a href="https://github.com/casanovaedu" target="_blank" class="flex items-center gap-2 px-6 py-3 bg-white text-slate-900 rounded-lg font-bold hover:bg-slate-200 transition-colors">
-                    <i data-lucide="github" class="w-5 h-5"></i> View Code/Projects
+                <a href="https://github.com/casanovaedu" target="_blank" class="glass-panel px-6 py-3 rounded-xl font-medium text-zinc-800 hover:bg-white transition-colors flex items-center gap-2 group">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-zinc-500 group-hover:text-black transition-colors"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                    <span data-i18n="portfolioBtn">Project Portfolio</span>
                 </a>
-                <a href="https://linkedin.com/in/edcasanova" target="_blank" class="flex items-center gap-2 px-6 py-3 border border-slate-700 rounded-lg font-medium hover:bg-slate-800 transition-colors">
-                    <i data-lucide="linkedin" class="w-5 h-5"></i> LinkedIn Profile
+                <a href="https://linkedin.com/in/edcasanova" target="_blank" class="glass-panel px-6 py-3 rounded-xl font-medium text-zinc-800 hover:bg-white transition-colors flex items-center gap-2 group">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-zinc-500 group-hover:text-blue-600 transition-colors"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                    LinkedIn
                 </a>
             </div>
         </div>
 
         <!-- ROI Dashboard Section -->
-        <div class="mb-20">
-            <h2 class="text-2xl font-bold mb-8 flex items-center gap-2">
-                <i data-lucide="bar-chart-2" class="text-blue-400"></i>
-                Historical ROI Snapshot
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Metric 1 -->
-                <div class="metric-card bg-slate-800/50 p-6 rounded-xl border border-slate-700 transition-all">
-                    <div class="text-4xl font-bold text-emerald-400 mb-2">€2.5M</div>
-                    <div class="text-sm text-slate-400 uppercase tracking-wide font-semibold mb-3">Annual Savings</div>
-                    <p class="text-sm text-slate-300">
-                        Revamped payment infrastructure and flight purchasing optimization at Exoticca.
+        <div class="mb-24">
+            <div class="flex justify-between items-end mb-8 border-b border-zinc-200 pb-4">
+                <h2 class="text-xl font-semibold text-zinc-900 flex items-center gap-2">
+                    <i data-lucide="trending-up" class="text-zinc-500"></i>
+                    <span data-i18n="metricsTitle">Revenue & Efficiency Impact</span>
+                </h2>
+                <span class="text-xs text-zinc-400 font-mono" data-i18n="metricsBadge">CONFIRMED METRICS</span>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <!-- Metric 1: Revenue (Primary) -->
+                <div class="metric-card p-6 rounded-2xl relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-zinc-100 rounded-full blur-3xl -mr-16 -mt-16 transition-all group-hover:bg-zinc-200"></div>
+                    <div class="relative">
+                        <div class="text-4xl font-bold text-zinc-900 mb-1">€8M</div>
+                        <div class="text-xs text-zinc-500 uppercase tracking-widest font-bold mb-3" data-i18n="m1Title">Revenue Impact</div>
+                        <p class="text-sm text-zinc-600 leading-relaxed" data-i18n="m1Desc">
+                            Linked NPS directly to revenue, proving that well-connected flows drive ~€8M per 10pts. Operations is more than reducing costs; it's a revenue driver.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Metric 2: Savings -->
+                <div class="metric-card p-6 rounded-2xl">
+                    <div class="text-4xl font-bold text-zinc-900 mb-1">€2.5M</div>
+                    <div class="text-xs text-zinc-500 uppercase tracking-widest font-bold mb-3" data-i18n="m2Title">Opex Savings</div>
+                    <p class="text-sm text-zinc-600 leading-relaxed" data-i18n="m2Desc">
+                        Revamped payment infrastructure and flight purchasing, directly impacting the bottom-line margin.
                     </p>
                 </div>
-                <!-- Metric 2 -->
-                <div class="metric-card bg-slate-800/50 p-6 rounded-xl border border-slate-700 transition-all">
-                    <div class="text-4xl font-bold text-blue-400 mb-2">40%</div>
-                    <div class="text-sm text-slate-400 uppercase tracking-wide font-semibold mb-3">NPS Sustained</div>
-                    <p class="text-sm text-slate-300">
-                        Maintained high satisfaction across 45k+ annual trips through AI-driven feedback loops.
+
+                <!-- Metric 3: Automation -->
+                <div class="metric-card p-6 rounded-2xl">
+                    <div class="text-4xl font-bold text-zinc-900 mb-1">25%</div>
+                    <div class="text-xs text-zinc-500 uppercase tracking-widest font-bold mb-3" data-i18n="m3Title">CSAT Uplift</div>
+                    <p class="text-sm text-zinc-600 leading-relaxed" data-i18n="m3Desc">
+                        Deployed a predictive model to preemptively solve friction points before users complained.
                     </p>
                 </div>
-                <!-- Metric 3 -->
-                <div class="metric-card bg-slate-800/50 p-6 rounded-xl border border-slate-700 transition-all">
-                    <div class="text-4xl font-bold text-violet-400 mb-2">AI & Auto</div>
-                    <div class="text-sm text-slate-400 uppercase tracking-wide font-semibold mb-3">Tech Implementation</div>
-                    <p class="text-sm text-slate-300">
-                        Built custom Python NLP tools to analyze Trustpilot data and automate document delivery.
+
+                <!-- Metric 4: Scale -->
+                <div class="metric-card p-6 rounded-2xl">
+                    <div class="text-4xl font-bold text-zinc-900 mb-1">100+</div>
+                    <div class="text-xs text-zinc-500 uppercase tracking-widest font-bold mb-3" data-i18n="m4Title">Partners Scaled</div>
+                    <p class="text-sm text-zinc-600 leading-relaxed" data-i18n="m4Desc">
+                        Strategic owner of the global provider platform, enabling booking management at massive scale.
+                    </p>
+                </div>
+
+                <!-- Metric 5: Accuracy -->
+                <div class="metric-card p-6 rounded-2xl">
+                    <div class="text-4xl font-bold text-zinc-900 mb-1">95%</div>
+                    <div class="text-xs text-zinc-500 uppercase tracking-widest font-bold mb-3" data-i18n="m5Title">Forecast Precision</div>
+                    <p class="text-sm text-zinc-600 leading-relaxed" data-i18n="m5Desc">
+                        Built the staffing model for 25+ Ops members. I model the future so we don't hire blindly.
+                    </p>
+                </div>
+
+                <!-- Metric 6: NPS -->
+                <div class="metric-card p-6 rounded-2xl">
+                    <div class="text-4xl font-bold text-zinc-900 mb-1">40%</div>
+                    <div class="text-xs text-zinc-500 uppercase tracking-widest font-bold mb-3" data-i18n="m6Title">Sustained NPS</div>
+                    <p class="text-sm text-zinc-600 leading-relaxed" data-i18n="m6Desc">
+                        Maintained high satisfaction across 45k+ annual trips through continuous feedback loops.
                     </p>
                 </div>
             </div>
         </div>
 
-        <!-- The "Why" Section (The actual cover letter content) -->
-        <div class="grid md:grid-cols-3 gap-12 mb-20">
-            <div class="md:col-span-1">
-                <h3 class="text-xl font-bold text-white mb-4">My Philosophy</h3>
-                <div class="bg-blue-900/20 p-6 rounded-lg border-l-4 border-blue-500">
-                    <p class="italic text-slate-300 leading-relaxed">
-                        "Operations isn't about working harder. It's about designing systems so robust that 'working hard' becomes optional."
-                    </p>
+        <!-- The "Ambiguity" Section -->
+        <div class="grid md:grid-cols-2 gap-12 mb-24 items-center">
+            <div class="glass-panel p-8 rounded-3xl relative">
+                <div class="absolute -top-4 -left-4 bg-zinc-900 text-white font-bold px-4 py-2 rounded-lg text-xs tracking-wider shadow-lg transform -rotate-2" data-i18n="specialtyBadge">
+                    MY SPECIALTY
+                </div>
+                <h3 class="text-2xl font-bold text-zinc-900 mb-4" data-i18n="ambiguityTitle">I Thrive in Ambiguity</h3>
+                <p class="text-zinc-600 mb-6 leading-relaxed">
+                    <strong data-i18n="storyTime">Story time:</strong> 🏃‍♂️ <span data-i18n="storyText">I recently watched a support team struggle with disjointed tools, copying data back and forth just to answer a simple query. It wasn't a people problem; it was a design failure. It made me realize: <em>I don’t want to just manage processes; I want to engineer the systems that make work effortless.</em></span>
+                </p>
+                <p class="text-zinc-600 leading-relaxed mb-6">
+                    <span data-i18n="spaceNerdStart">I’m a</span> <strong data-i18n="spaceNerdBold">Space Nerd</strong> 🪐 <span data-i18n="spaceNerdEnd">at heart—I love things that launch. I specialize in projects that start with "we have no idea how to solve this" and end with a concrete, automated workflow.</span>
+                </p>
+                
+                <!-- Improved Visual Transformation -->
+                <div class="mt-8 flex items-center justify-between bg-white/50 p-4 rounded-xl border border-zinc-200">
+                    <div class="text-center">
+                        <div class="text-xs text-zinc-500 font-bold uppercase tracking-wider mb-1" data-i18n="diagramInput">Input</div>
+                        <div class="text-sm font-semibold text-zinc-700" data-i18n="diagramVague">Vague Problem</div>
+                    </div>
+                    <div class="flex-1 border-t-2 border-dashed border-zinc-300 mx-4 relative">
+                        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-white px-2 text-[10px] text-zinc-400 font-mono" data-i18n="diagramProcess">PROCESS</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-xs text-zinc-500 font-bold uppercase tracking-wider mb-1" data-i18n="diagramOutput">Output</div>
+                        <div class="text-sm font-bold text-zinc-900" data-i18n="diagramSystem">Profitable System</div>
+                    </div>
                 </div>
             </div>
-            <div class="md:col-span-2">
-                <h3 class="text-xl font-bold text-white mb-4">Strategic Alignment</h3>
-                <div class="prose prose-invert max-w-none text-slate-300">
-                    <p class="mb-4">
-                        <strong>The Challenge:</strong> Every high-growth organization eventually reaches a tipping point where operational complexity outpaces execution. Systems break, data gets siloed, and "process" becomes a bottleneck rather than an enabler.
-                    </p>
-                    <p class="mb-4">
-                        <strong>The Solution:</strong> That is exactly where I operate. I don't just manage workflows; I engineer them. I treat operations as a product—constantly iterating, automating, and optimizing for scale.
-                    </p>
-                    <p>
-                        I offer a rare hybrid skillset: the <strong>financial rigour</strong> of an auditor (ex-PwC) combined with the <strong>technical capability</strong> of a developer (Python, SQL, AI). I don't need to wait for a data analyst to tell me where the inefficiencies are; I can query the data, build the tool, and fix the problem myself. I am ready to step in and drive immediate value from Day 1.
-                    </p>
+
+            <div>
+                <h3 class="text-xl font-bold text-zinc-900 mb-6" data-i18n="pipelineTitle">The Abstract-to-Concrete Pipeline</h3>
+                <div class="space-y-6">
+                    <div class="flex gap-4">
+                        <div class="mt-1 bg-white border border-zinc-200 p-2 rounded-lg h-fit shadow-sm"><i data-lucide="microscope" class="w-5 h-5 text-zinc-600"></i></div>
+                        <div>
+                            <h4 class="text-zinc-900 font-semibold" data-i18n="step1Title">1. Operational Diagnosis</h4>
+                            <p class="text-sm text-zinc-500 mt-1" data-i18n="step1Desc">I dive into the messy data. I don't wait for reports; I audit the <strong>operational reality</strong> vs the process map to identify where value is actually leaking.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="mt-1 bg-white border border-zinc-200 p-2 rounded-lg h-fit shadow-sm"><i data-lucide="layers" class="w-5 h-5 text-zinc-900"></i></div>
+                        <div>
+                            <h4 class="text-zinc-900 font-semibold" data-i18n="step2Title">2. Strategic Architecture</h4>
+                            <p class="text-sm text-zinc-500 mt-1" data-i18n="step2Desc">I design the solution. Whether it's a new operational workflow, a policy change, or a tech integration.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="mt-1 bg-white border border-zinc-200 p-2 rounded-lg h-fit shadow-sm"><i data-lucide="coins" class="w-5 h-5 text-zinc-600"></i></div>
+                        <div>
+                            <h4 class="text-zinc-900 font-semibold" data-i18n="step3Title">3. Revenue Realization</h4>
+                            <p class="text-sm text-zinc-500 mt-1" data-i18n="step3Desc">I link it to P&L. If the process improvement doesn't save money or make money, I iterate until it does.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Tech Stack -->
-        <div class="border-t border-slate-800 pt-12">
-            <h3 class="text-center text-sm font-semibold text-slate-500 uppercase tracking-widest mb-8">My Operational Toolkit</h3>
-            <div class="flex flex-wrap justify-center gap-8 opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
-                <!-- Simple Text Badges for Tech Stack -->
-                <span class="px-4 py-2 bg-slate-800 rounded text-slate-300 font-mono text-sm border border-slate-700">Python (Pandas/NLP)</span>
-                <span class="px-4 py-2 bg-slate-800 rounded text-slate-300 font-mono text-sm border border-slate-700">SQL</span>
-                <span class="px-4 py-2 bg-slate-800 rounded text-slate-300 font-mono text-sm border border-slate-700">Looker/BI</span>
-                <span class="px-4 py-2 bg-slate-800 rounded text-slate-300 font-mono text-sm border border-slate-700">Jira/Confluence</span>
-                <span class="px-4 py-2 bg-slate-800 rounded text-slate-300 font-mono text-sm border border-slate-700">Financial Audit</span>
+        <!-- Automation Stack -->
+        <div class="border-t border-zinc-200 pt-12">
+            <h3 class="text-center text-xs font-bold text-zinc-400 uppercase tracking-[0.2em] mb-10" data-i18n="toolkitTitle">Strategic & Technical Toolkit</h3>
+            <div class="flex flex-wrap justify-center gap-4">
+                <!-- Tech Badge 1 -->
+                <div class="glass-panel px-5 py-3 rounded-full flex items-center gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-zinc-700"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                    <span class="text-sm font-medium text-zinc-700" data-i18n="skillAudit">Financial Audit (PwC)</span>
+                </div>
+                 <!-- Tech Badge 2 -->
+                 <div class="glass-panel px-5 py-3 rounded-full flex items-center gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-zinc-700"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M6 21V9a9 9 0 0 0 9 9"/></svg>
+                    <span class="text-sm font-medium text-zinc-700" data-i18n="skillProcess">Process Design</span>
+                </div>
+                <!-- Tech Badge 3 -->
+                <div class="glass-panel px-5 py-3 rounded-full flex items-center gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-zinc-700"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                    <span class="text-sm font-medium text-zinc-700" data-i18n="skillSQL">SQL & Data Analysis</span>
+                </div>
+                <!-- Tech Badge 4 -->
+                <div class="glass-panel px-5 py-3 rounded-full flex items-center gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-zinc-700"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+                    <span class="text-sm font-medium text-zinc-700" data-i18n="skillBI">Looker / BI Dashboards</span>
+                </div>
+                <!-- Tech Badge 5 -->
+                <div class="glass-panel px-5 py-3 rounded-full flex items-center gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-zinc-500"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></svg>
+                    <span class="text-sm font-medium text-zinc-500" data-i18n="skillPython">Python (Tech Enabled)</span>
+                </div>
+                 <!-- Tech Badge 6 -->
+                 <div class="glass-panel px-5 py-3 rounded-full flex items-center gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-zinc-700"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    <span class="text-sm font-medium text-zinc-700" data-i18n="skillTeam">Team Leadership</span>
+                </div>
+                 <!-- Tech Badge 7 -->
+                 <div class="glass-panel px-5 py-3 rounded-full flex items-center gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-zinc-700"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    <span class="text-sm font-medium text-zinc-700" data-i18n="skillStakeholder">Stakeholder Mgmt</span>
+                </div>
+                 <!-- Tech Badge 8 -->
+                 <div class="glass-panel px-5 py-3 rounded-full flex items-center gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-zinc-700"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg>
+                    <span class="text-sm font-medium text-zinc-700" data-i18n="skillChange">Change Management</span>
+                </div>
+                <!-- Tech Badge 9: Figma -->
+                <div class="glass-panel px-5 py-3 rounded-full flex items-center gap-3">
+                    <!-- Corrected Figma Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-zinc-700"><path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H12v7H8.5A3.5 3.5 0 0 1 5 5.5z"/><path d="M12 2h3.5a3.5 3.5 0 1 1 0 7H12V2z"/><path d="M12 12.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/><path d="M5 19.5A3.5 3.5 0 0 1 8.5 16H12v3.5a3.5 3.5 0 1 1-7 0z"/><path d="M5 12.5A3.5 3.5 0 0 1 8.5 9H12v7H8.5A3.5 3.5 0 0 1 5 12.5z"/></svg>
+                    <span class="text-sm font-medium text-zinc-700">Figma</span>
+                </div>
+                <!-- Tech Badge 10: Jira -->
+                <div class="glass-panel px-5 py-3 rounded-full flex items-center gap-3">
+                    <!-- Corrected Jira Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="text-zinc-700">
+                        <path d="M11.53 2c0 2.4 1.97 4.35 4.35 4.35h1.78v-1.7c0-2.4-1.94-4.35-4.35-4.35h-1.78v1.7zm-2.69 2.35c0-2.4 1.94-4.35 4.35-4.35h1.78v1.7c0 2.4-1.97 4.35-4.35 4.35h-1.78v-1.7zm-2.61 4.73c0-2.4 1.94-4.35 4.35-4.35h1.78v1.7c0 2.4-1.97 4.35-4.35 4.35h-1.78v-1.7zm-2.61 4.73c0-2.4 1.94-4.35 4.35-4.35h1.78v1.7c0 2.4-1.97 4.35-4.35 4.35h-1.78v-1.7z"/>
+                    </svg>
+                    <span class="text-sm font-medium text-zinc-700">Jira</span>
+                </div>
+                <!-- Tech Badge 11: Gemini / AI -->
+                <div class="glass-panel px-5 py-3 rounded-full flex items-center gap-3">
+                    <!-- Corrected AI/Sparkles Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-zinc-700"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M9 5H5"/><path d="M19 19v2"/><path d="M17 21h2"/></svg>
+                    <span class="text-sm font-medium text-zinc-700" data-i18n="skillAI">Gemini / AI Agents</span>
+                </div>
             </div>
         </div>
 
     </main>
 
-    <footer class="text-center py-12 text-slate-600 text-sm">
-        <p>© 2025 Edu Casanova. Coded by hand.</p>
+    <footer class="text-center py-12 text-zinc-400 text-xs font-mono">
+        <p>ARCHITECTED BY EDU CASANOVA © 2025</p>
     </footer>
 
+    <!-- CONTACT MODAL -->
+    <div id="contact-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/20 backdrop-blur-sm modal-animate" onclick="closeContactModal()">
+        <div class="w-full max-w-md bg-white border border-zinc-200 rounded-3xl p-8 shadow-2xl relative modal-content-animate" onclick="event.stopPropagation()">
+            
+            <button onclick="closeContactModal()" class="absolute top-6 right-6 text-zinc-400 hover:text-zinc-900 transition-colors">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <div class="text-center mb-8">
+                <h3 class="text-xl font-bold text-zinc-900 mb-2" data-i18n="modalTitle">Initialize Contact</h3>
+                <p class="text-zinc-500 text-sm" data-i18n="modalSubtitle">Select communication protocol.</p>
+            </div>
+
+            <div class="space-y-3">
+                <a href="mailto:casanovaeduard@gmail.com" class="flex items-center gap-4 p-4 rounded-2xl bg-zinc-50 hover:bg-zinc-100 border border-zinc-100 hover:border-zinc-300 transition-all group">
+                    <div class="bg-white border border-zinc-200 p-2.5 rounded-xl text-zinc-900 group-hover:scale-110 transition-transform">
+                        <i data-lucide="mail" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <div class="text-zinc-900 font-medium text-sm" data-i18n="modalEmail">Send Email</div>
+                        <div class="text-zinc-500 text-xs">casanovaeduard@gmail.com</div>
+                    </div>
+                </a>
+
+                <a href="tel:+34663365367" class="flex items-center gap-4 p-4 rounded-2xl bg-zinc-50 hover:bg-zinc-100 border border-zinc-100 hover:border-zinc-300 transition-all group">
+                    <div class="bg-white border border-zinc-200 p-2.5 rounded-xl text-zinc-900 group-hover:scale-110 transition-transform">
+                        <i data-lucide="phone" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <div class="text-zinc-900 font-medium text-sm" data-i18n="modalCall">Call / Text</div>
+                        <div class="text-zinc-500 text-xs">+34 663 365 367</div>
+                    </div>
+                </a>
+
+                <a href="https://linkedin.com/in/edcasanova" target="_blank" class="flex items-center gap-4 p-4 rounded-2xl bg-zinc-50 hover:bg-zinc-100 border border-zinc-100 hover:border-zinc-300 transition-all group">
+                    <div class="bg-white border border-zinc-200 p-2.5 rounded-xl text-zinc-900 group-hover:scale-110 transition-transform">
+                        <i data-lucide="linkedin" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <div class="text-zinc-900 font-medium text-sm">LinkedIn</div>
+                        <div class="text-zinc-500 text-xs" data-i18n="modalLinkedinSub">Connect directly</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Initialize Icons
         lucide.createIcons();
+        function openContactModal() { document.getElementById('contact-modal').style.display = 'flex'; }
+        function closeContactModal() { document.getElementById('contact-modal').style.display = 'none'; }
+
+        // Translation Logic
+        const translations = {
+            en: {
+                location: "Barcelona (Hybrid) • Remote • Open to Relocation",
+                contactBtn: "Contact Me",
+                heroBadge: "Operational Strategy",
+                heroTitle1: "I turn ambiguity into",
+                heroTitle2: "recurring revenue.",
+                heroDesc1: "I was a pivotal part of Exoticca's scale-up success. Now, I combine that",
+                heroDescBold1: "Operational Strategy",
+                heroDesc2: "with",
+                heroDescBold2: "Financial Rigour",
+                heroDesc3: "(ex-PwC) to build",
+                heroDescBold3: "scalable engines",
+                heroDesc4: "that transform chaos into predictable growth.",
+                portfolioBtn: "Project Portfolio",
+                metricsTitle: "Revenue & Efficiency Impact",
+                metricsBadge: "CONFIRMED METRICS",
+                m1Title: "Revenue Impact",
+                m1Desc: "Linked NPS directly to revenue, proving that well-connected flows drive ~€8M per 10pts. Operations is more than reducing costs; it's a revenue driver.",
+                m2Title: "Opex Savings",
+                m2Desc: "Revamped payment infrastructure and flight purchasing, directly impacting the bottom-line margin.",
+                m3Title: "CSAT Uplift",
+                m3Desc: "Deployed a predictive model to preemptively solve friction points before users complained.",
+                m4Title: "Partners Scaled",
+                m4Desc: "Strategic owner of the global provider platform, enabling booking management at massive scale.",
+                m5Title: "Forecast Precision",
+                m5Desc: "Built the staffing model for 25+ Ops members. I model the future so we don't hire blindly.",
+                m6Title: "Sustained NPS",
+                m6Desc: "Maintained high satisfaction across 45k+ annual trips through continuous feedback loops.",
+                specialtyBadge: "MY SPECIALTY",
+                ambiguityTitle: "I Thrive in Ambiguity",
+                storyTime: "Story time:",
+                storyText: "I recently watched a support team struggle with disjointed tools, copying data back and forth just to answer a simple query. It wasn't a people problem; it was a design failure. It made me realize: <em>I don’t want to just manage processes; I want to engineer the systems that make work effortless.</em>",
+                spaceNerdStart: "I’m a",
+                spaceNerdBold: "Space Nerd",
+                spaceNerdEnd: "at heart—I love things that launch. I specialize in projects that start with \"we have no idea how to solve this\" and end with a concrete, automated workflow.",
+                diagramInput: "Input",
+                diagramVague: "Vague Problem",
+                diagramProcess: "PROCESS",
+                diagramOutput: "Output",
+                diagramSystem: "Profitable System",
+                pipelineTitle: "The Abstract-to-Concrete Pipeline",
+                step1Title: "1. Operational Diagnosis",
+                step1Desc: "I dive into the messy data. I don't wait for reports; I audit the <strong>operational reality</strong> vs the process map to identify where value is actually leaking.",
+                step2Title: "2. Strategic Architecture",
+                step2Desc: "I design the solution. Whether it's a new operational workflow, a policy change, or a tech integration.",
+                step3Title: "3. Revenue Realization",
+                step3Desc: "I link it to P&L. If the process improvement doesn't save money or make money, I iterate until it does.",
+                toolkitTitle: "Strategic & Technical Toolkit",
+                skillAudit: "Financial Audit (PwC)",
+                skillProcess: "Process Design",
+                skillSQL: "SQL & Data Analysis",
+                skillBI: "Looker / BI Dashboards",
+                skillPython: "Python (Tech Enabled)",
+                skillTeam: "Team Leadership",
+                skillStakeholder: "Stakeholder Mgmt",
+                skillChange: "Change Management",
+                skillAI: "Gemini / AI Agents",
+                modalTitle: "Initialize Contact",
+                modalSubtitle: "Select communication protocol.",
+                modalEmail: "Send Email",
+                modalCall: "Call / Text",
+                modalLinkedinSub: "Connect directly"
+            },
+            es: {
+                location: "Barcelona (Híbrido) • Remoto • Dispuesto a reubicarse",
+                contactBtn: "Contáctame",
+                heroBadge: "Estrategia Operativa",
+                heroTitle1: "Transformo la ambigüedad en",
+                heroTitle2: "ingresos recurrentes.",
+                heroDesc1: "Fui una pieza clave en el éxito de la scale-up Exoticca. Ahora, combino esa",
+                heroDescBold1: "Estrategia Operativa",
+                heroDesc2: "con",
+                heroDescBold2: "Rigor Financiero",
+                heroDesc3: "(ex-PwC) para construir",
+                heroDescBold3: "motores escalables",
+                heroDesc4: "que transforman el caos en crecimiento predecible.",
+                portfolioBtn: "Portafolio de Proyectos",
+                metricsTitle: "Impacto en Ingresos y Eficiencia",
+                metricsBadge: "MÉTRICAS CONFIRMADAS",
+                m1Title: "Impacto en Ingresos",
+                m1Desc: "Vinculé el NPS directamente a los ingresos, demostrando que flujos bien conectados generan ~8M€ por cada 10 pts. Operaciones es más que reducir costes; es un motor de ingresos.",
+                m2Title: "Ahorro Operativo (Opex)",
+                m2Desc: "Renové la infraestructura de pagos y la compra de vuelos, impactando directamente en el margen final.",
+                m3Title: "Mejora de CSAT",
+                m3Desc: "Implementé un modelo predictivo para resolver puntos de fricción preventivamente antes de que los usuarios se quejaran.",
+                m4Title: "Partners Escalados",
+                m4Desc: "Propietario estratégico de la plataforma global de proveedores, permitiendo la gestión de reservas a escala masiva.",
+                m5Title: "Precisión de Previsión",
+                m5Desc: "Construí el modelo de personal para más de 25 miembros de Ops. Modelo el futuro para no contratar a ciegas.",
+                m6Title: "NPS Sostenido",
+                m6Desc: "Mantuve una alta satisfacción en más de 45k viajes anuales a través de ciclos de retroalimentación continua.",
+                specialtyBadge: "MI ESPECIALIDAD",
+                ambiguityTitle: "Me Muevo Bien en la Ambigüedad",
+                storyTime: "Historia rápida:",
+                storyText: "Hace poco vi a un equipo de soporte luchar con herramientas desconectadas, copiando datos de un lado a otro solo para responder una consulta simple. No era un problema de personas; era un fallo de diseño. Me di cuenta: <em>No quiero solo gestionar procesos; quiero diseñar los sistemas que hacen que el trabajo sea fácil.</em>",
+                spaceNerdStart: "Soy un",
+                spaceNerdBold: "Friki del Espacio",
+                spaceNerdEnd: "de corazón: me encanta todo lo que despega. Me especializo en proyectos que comienzan con \"no tenemos idea de cómo resolver esto\" y terminan con un flujo de trabajo concreto y automatizado.",
+                diagramInput: "Entrada",
+                diagramVague: "Problema Vago",
+                diagramProcess: "PROCESO",
+                diagramOutput: "Salida",
+                diagramSystem: "Sistema Rentable",
+                pipelineTitle: "El Pipeline de Abstracto a Concreto",
+                step1Title: "1. Diagnóstico Operativo",
+                step1Desc: "Me sumerjo en los datos desordenados. No espero informes; audito la <strong>realidad operativa</strong> vs el mapa de procesos para identificar dónde se pierde valor realmente.",
+                step2Title: "2. Arquitectura Estratégica",
+                step2Desc: "Diseño la solución. Ya sea un nuevo flujo de trabajo operativo, un cambio de política o una integración tecnológica.",
+                step3Title: "3. Realización de Ingresos",
+                step3Desc: "Lo vinculo al P&L. Si la mejora del proceso no ahorra dinero o genera dinero, itero hasta que lo haga.",
+                toolkitTitle: "Toolkit Estratégico y Técnico",
+                skillAudit: "Auditoría Financiera (PwC)",
+                skillProcess: "Diseño de Procesos",
+                skillSQL: "SQL y Análisis de Datos",
+                skillBI: "Looker / Dashboards BI",
+                skillPython: "Python (Tech Enabled)",
+                skillTeam: "Liderazgo de Equipos",
+                skillStakeholder: "Gestión de Stakeholders",
+                skillChange: "Gestión del Cambio",
+                skillAI: "Gemini / Agentes IA",
+                modalTitle: "Iniciar Contacto",
+                modalSubtitle: "Seleccione protocolo de comunicación.",
+                modalEmail: "Enviar Email",
+                modalCall: "Llamar / Mensaje",
+                modalLinkedinSub: "Conectar directamente"
+            }
+        };
+
+        let currentLang = 'en';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'es' : 'en';
+            
+            // Toggle visual state of flags
+            const enFlag = document.getElementById('flag-en');
+            const esFlag = document.getElementById('flag-es');
+            
+            if (currentLang === 'en') {
+                enFlag.classList.remove('lang-inactive', 'grayscale');
+                enFlag.classList.add('lang-active', 'grayscale-0');
+                esFlag.classList.remove('lang-active', 'grayscale-0');
+                esFlag.classList.add('lang-inactive', 'grayscale');
+            } else {
+                esFlag.classList.remove('lang-inactive', 'grayscale');
+                esFlag.classList.add('lang-active', 'grayscale-0');
+                enFlag.classList.remove('lang-active', 'grayscale-0');
+                enFlag.classList.add('lang-inactive', 'grayscale');
+            }
+            
+            // Update all text elements
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[currentLang][key]) {
+                    // Check if translation contains HTML tags to use innerHTML
+                    if (translations[currentLang][key].includes('<')) {
+                        el.innerHTML = translations[currentLang][key];
+                    } else {
+                        el.innerText = translations[currentLang][key];
+                    }
+                }
+            });
+        }
     </script>
 </body>
 </html>
