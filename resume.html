@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edu Casanova - CV</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+                    },
+                    colors: {
+                        zinc: {
+                            50: '#fafafa',
+                            100: '#f4f4f5',
+                            200: '#e4e4e7',
+                            300: '#d4d4d8',
+                            400: '#a1a1aa',
+                            500: '#71717a',
+                            600: '#52525b',
+                            700: '#3f3f46',
+                            800: '#27272a',
+                            900: '#18181b',
+                        },
+                        emerald: {
+                            500: '#10b981',
+                            600: '#059669',
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+    <style type="text/css">
+        /* Glass Effect Classes */
+        .glass-panel {
+            background-color: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(228, 228, 231, 0.6);
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        /* Base Page Styling */
+        body {
+            background-color: #f4f4f5;
+            color: #18181b;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        /* Tool Item Styling */
+        .tool-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.3rem 0.4rem; /* Ultra compact */
+            background-color: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(228, 228, 231, 0.8);
+            border-radius: 0.4rem;
+        }
+
+        /* PRINT LAYOUT LOGIC */
+        @media print {
+            @page {
+                margin: 0;
+                size: A4;
+            }
+
+            html, body {
+                width: 210mm;
+                height: 297mm;
+                margin: 0;
+                padding: 0;
+                background-color: #f4f4f5 !important;
+            }
+
+            .page-container {
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+            }
+
+            .flex-container {
+                display: flex !important;
+                flex-direction: row !important;
+                height: 100%;
+            }
+
+            /* Sidebar - LEFT (Narrower) */
+            .sidebar {
+                width: 28% !important;
+                background-color: #f4f4f5 !important;
+                padding-top: 10mm !important;
+                padding-left: 8mm !important;
+                padding-right: 5mm !important;
+                border-right: 1px solid #e4e4e7 !important;
+            }
+
+            /* Main Column - RIGHT */
+            .main-column {
+                width: 72% !important;
+                padding-top: 10mm !important;
+                padding-left: 8mm !important;
+                padding-right: 10mm !important;
+                background-color: #ffffff !important;
+            }
+
+            /* COMPACT PRINT SPACING */
+            section { margin-top: 0.75rem !important; }
+            h1 { font-size: 18pt !important; line-height: 1 !important; margin-bottom: 0.2rem !important; }
+            h2 { font-size: 13pt !important; margin-bottom: 0.2rem !important; }
+            h3 { font-size: 9pt !important; margin-bottom: 0.15rem !important; }
+            p, li { font-size: 7.5pt !important; line-height: 1.25 !important; }
+            .text-xs { font-size: 7pt !important; }
+            
+            /* Tighten lists */
+            ul.list-disc { margin-top: 0.1rem !important; }
+            li { margin-bottom: 0.1rem !important; }
+
+            /* Ensure Glass Cards Print nicely */
+            .glass-panel {
+                background-color: #ffffff !important;
+                border: 1px solid #e4e4e7 !important;
+                box-shadow: none !important;
+                padding: 0.4rem !important;
+                margin-bottom: 0.4rem !important;
+                break-inside: avoid !important;
+            }
+            
+            .tool-item {
+                background-color: #ffffff !important;
+                border: 1px solid #e4e4e7 !important;
+                padding: 0.2rem 0.3rem !important;
+                margin-bottom: 0.1rem !important;
+            }
+
+            /* Force text colors in print */
+            .print-text-white { color: #ffffff !important; -webkit-text-fill-color: #ffffff !important; }
+            .print-bg-black { background-color: #18181b !important; }
+
+            .no-print { display: none !important; }
+            a { text-decoration: none !important; color: inherit !important; }
+            a[href]:after { content: none !important; }
+        }
+    </style>
+</head>
+
+<body class="font-sans antialiased text-zinc-900">
+
+    <div class="page-container mx-auto max-w-5xl bg-white shadow-2xl overflow-hidden my-8 rounded-xl print:my-0 print:rounded-none print:shadow-none">
+        <div class="flex-container flex flex-col md:flex-row h-full">
+
+            <!-- SIDEBAR (LEFT) -->
+            <!-- Reduced padding (p-5 -> p-4) and gap (gap-5 -> gap-3) to fit Hobbies on page 1 -->
+            <aside class="sidebar w-full md:w-[28%] bg-zinc-50 border-r border-zinc-200 p-4 flex flex-col gap-3"> 
+
+                <!-- Profile -->
+                <div class="flex flex-col items-center text-center">
+                    <img 
+                        src="IMG_0030.jpg" 
+                        alt="Edu Casanova" 
+                        class="w-28 h-28 rounded-full object-cover shadow-md mb-3 border-4 border-white"
+                        onerror="this.src='https://placehold.co/112x112/f4f4f5/71717a?text=EC'; this.onerror=null;"
+                    >
+                    <h1 class="text-xl font-bold text-zinc-900 uppercase tracking-tight whitespace-nowrap">Edu Casanova</h1>
+                    <p class="text-xs font-medium text-emerald-600 mt-0.5">Ops & Customer Excellence Manager</p>
+                </div>
+
+                <!-- Contact -->
+                <section class="mt-4"> 
+                    <h3 class="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2">Get in Touch</h3>
+                    <div class="space-y-1.5">
+                        <a href="mailto:casanovaeduard@gmail.com" class="flex items-center text-[10px] text-zinc-600 hover:text-zinc-900 transition-colors">
+                            <svg class="w-3.5 h-3.5 mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            <span class="break-all">casanovaeduard@gmail.com</span>
+                        </a>
+                        <div class="flex items-center text-[10px] text-zinc-600">
+                            <svg class="w-3.5 h-3.5 mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                            <span>+34 663 365 367</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Links -->
+                <section>
+                    <h3 class="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2">Links</h3>
+                    <div class="space-y-1.5">
+                        <!-- Interactive Portfolio Button -->
+                        <a href="https://casanovaedu.github.io/portfolio/" target="_blank" class="flex items-center justify-between p-2 rounded-lg bg-zinc-900 text-white hover:bg-zinc-800 transition-all shadow-md group print-bg-black">
+                            <span class="text-[9px] font-bold uppercase tracking-wider print-text-white text-white">Interactive Portfolio</span>
+                            <svg class="w-3 h-3 text-zinc-400 group-hover:text-white print-text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </a>
+
+                        <a href="https://linkedin.com/in/edcasanova" target="_blank" class="flex items-center text-[10px] text-zinc-600 hover:text-blue-600 transition-colors">
+                             <svg class="w-3.5 h-3.5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                            linkedin.com/in/edcasanova
+                        </a>
+                        <a href="https://github.com/casanovaedu" target="_blank" class="flex items-center text-[10px] text-zinc-600 hover:text-black transition-colors">
+                            <svg class="w-3.5 h-3.5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.137 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                            github.com/casanovaedu
+                        </a>
+                    </div>
+                </section>
+
+                <!-- Education (Moved Above Technologies) -->
+                <section>
+                    <h3 class="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2">Education</h3>
+                    <div class="space-y-3">
+                        <div class="glass-panel p-2 rounded-lg">
+                            <h4 class="font-bold text-zinc-900 text-[10px] leading-tight">MsC in Financial Mgmt</h4>
+                            <p class="text-[9px] text-zinc-500 mt-0.5">Barcelona School of Management</p>
+                        </div>
+                        <div class="glass-panel p-2 rounded-lg">
+                            <h4 class="font-bold text-zinc-900 text-[10px] leading-tight">BSc Int. Business Econ</h4>
+                            <p class="text-[9px] text-zinc-500 mt-0.5">Universitat Pompeu Fabra</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Toolkit (Renamed from Technologies) -->
+                <section>
+                    <h3 class="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2">Toolkit</h3>
+                    <div class="grid grid-cols-1 gap-1.5">
+                        <div class="tool-item">
+                            <div class="flex items-center">
+                                <img src="Tools/Excel Google Sheets/excel.png" class="w-3.5 h-3.5 mr-2 object-contain" onerror="this.src='https://placehold.co/16x16/E0E7FF/4F46E5?text=X'; this.onerror=null;">
+                                <span class="text-[9px] font-medium text-zinc-700">Excel/GSheets</span>
+                            </div>
+                            <span class="text-[8px] font-bold text-emerald-600 uppercase">Expert</span>
+                        </div>
+                        <div class="tool-item">
+                            <div class="flex items-center">
+                                <img src="Tools/Jira Confluence/jira.svg" class="w-3.5 h-3.5 mr-2 object-contain" onerror="this.src='https://placehold.co/16x16/E0E7FF/4F46E5?text=J'; this.onerror=null;">
+                                <span class="text-[9px] font-medium text-zinc-700">Jira/Confluence</span>
+                            </div>
+                            <span class="text-[8px] font-bold text-emerald-600 uppercase">Expert</span>
+                        </div>
+                        <div class="tool-item">
+                            <div class="flex items-center">
+                                <img src="Tools/Looker BI tools/looker.svg" class="w-3.5 h-3.5 mr-2 object-contain" onerror="this.src='https://placehold.co/16x16/E0E7FF/4F46E5?text=L'; this.onerror=null;">
+                                <span class="text-[9px] font-medium text-zinc-700">Looker/BI Tools</span>
+                            </div>
+                            <span class="text-[8px] font-bold text-yellow-600 uppercase">Advanced</span>
+                        </div>
+                        <div class="tool-item">
+                            <div class="flex items-center">
+                                <img src="Tools/Gemini AI agents/gemini-color.png" class="w-3.5 h-3.5 mr-2 object-contain" onerror="this.src='https://placehold.co/16x16/E0E7FF/4F46E5?text=AI'; this.onerror=null;">
+                                <span class="text-[9px] font-medium text-zinc-700">Gemini/AI Agents</span>
+                            </div>
+                            <span class="text-[8px] font-bold text-yellow-600 uppercase">Advanced</span>
+                        </div>
+                        <div class="tool-item">
+                            <div class="flex items-center">
+                                <img src="Tools/SQL/database.jpg" class="w-3.5 h-3.5 mr-2 object-contain rounded" onerror="this.src='https://placehold.co/16x16/E0E7FF/4F46E5?text=S'; this.onerror=null;">
+                                <span class="text-[9px] font-medium text-zinc-700">SQL</span>
+                            </div>
+                            <span class="text-[8px] font-bold text-blue-600 uppercase">Int.</span>
+                        </div>
+                        <div class="tool-item">
+                            <div class="flex items-center">
+                                <img src="Tools/Python/python.png" class="w-3.5 h-3.5 mr-2 object-contain" onerror="this.src='https://placehold.co/16x16/E0E7FF/4F46E5?text=P'; this.onerror=null;">
+                                <span class="text-[9px] font-medium text-zinc-700">Python</span>
+                            </div>
+                            <span class="text-[8px] font-bold text-blue-600 uppercase">Int.</span>
+                        </div>
+                        <div class="tool-item">
+                            <div class="flex items-center">
+                                <img src="Tools/figma.png" class="w-3.5 h-3.5 mr-2 object-contain" onerror="this.src='https://placehold.co/16x16/E0E7FF/4F46E5?text=F'; this.onerror=null;">
+                                <span class="text-[9px] font-medium text-zinc-700">Figma</span>
+                            </div>
+                            <span class="text-[8px] font-bold text-blue-600 uppercase">Int.</span>
+                        </div>
+                        <div class="tool-item">
+                            <div class="flex items-center">
+                                <img src="Tools/photoshop icon.png" class="w-3.5 h-3.5 mr-2 object-contain" onerror="this.src='https://placehold.co/16x16/E0E7FF/4F46E5?text=P'; this.onerror=null;">
+                                <span class="text-[9px] font-medium text-zinc-700">Photoshop</span>
+                            </div>
+                            <span class="text-[8px] font-bold text-blue-600 uppercase">Int.</span>
+                        </div>
+                        <div class="tool-item">
+                            <div class="flex items-center">
+                                <img src="Tools/n8n.webp" class="w-3.5 h-3.5 mr-2 object-contain" onerror="this.src='https://placehold.co/16x16/E0E7FF/4F46E5?text=A'; this.onerror=null;">
+                                <span class="text-[9px] font-medium text-zinc-700">Zapier / n8n (automation)</span>
+                            </div>
+                            <span class="text-[8px] font-bold text-orange-600 uppercase">Working</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Certifications -->
+                <section>
+                    <h3 class="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2">Certifications</h3>
+                    <div class="glass-panel p-2 rounded-lg">
+                        <h4 class="font-bold text-zinc-900 text-[10px] leading-tight">Associate Data Engineer in SQL</h4>
+                        <p class="text-[9px] text-zinc-500 mt-0.5">By DataCamp</p>
+                    </div>
+                </section>
+
+                <section>
+                    <h3 class="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2">Hobbies</h3>
+                    <div class="flex flex-wrap gap-1.5">
+                        <span class="px-2 py-0.5 bg-zinc-200 rounded text-[9px] text-zinc-700">Reading</span>
+                        <span class="px-2 py-0.5 bg-zinc-200 rounded text-[9px] text-zinc-700">Photography</span>
+                        <span class="px-2 py-0.5 bg-zinc-200 rounded text-[9px] text-zinc-700">Mountaineering</span>
+                        <span class="px-2 py-0.5 bg-zinc-200 rounded text-[9px] text-zinc-700">Running</span>
+                        <span class="px-2 py-0.5 bg-zinc-200 rounded text-[9px] text-zinc-700">Crossfit</span>
+                        <span class="px-2 py-0.5 bg-zinc-200 rounded text-[9px] text-zinc-700">Painting</span>
+                    </div>
+                </section>
+
+            </aside>
+
+            <!-- MAIN CONTENT (RIGHT) -->
+            <main class="main-column w-full md:w-[72%] p-6 bg-white">
+
+                <!-- Summary -->
+                <section>
+                    <h2 class="text-lg font-bold text-zinc-900 mb-2 border-b pb-1 border-zinc-100">Professional Summary</h2>
+                    <div class="text-[10px] text-zinc-600 space-y-2 leading-relaxed text-justify">
+                        <p>
+                            <strong class="font-semibold text-zinc-900">Operations & Customer Excellence Leader</strong> with 6+ years of experience owning high-impact, cross-functional initiatives across Operations, Product, and Customer Experience in high-growth environments.
+                        </p>
+                        <p>
+                           Proven track record of translating customer insights into scalable systems that improve NPS, reduce operational cost, and directly impact revenue. Comfortable operating at the intersection of strategy and execution, with strong financial judgment and a bias toward automation and leverage.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Core Competencies -->
+                <section class="mb-4">
+                    <h3 class="text-[10px] font-bold uppercase tracking-[0.15em] text-zinc-400 mb-2">Core Competencies</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-2.5 py-1 bg-zinc-100 border border-zinc-200 rounded-md text-[9px] font-medium text-zinc-700">Process Design</span>
+                        <span class="px-2.5 py-1 bg-zinc-100 border border-zinc-200 rounded-md text-[9px] font-medium text-zinc-700">Data Analysis</span>
+                        <span class="px-2.5 py-1 bg-zinc-100 border border-zinc-200 rounded-md text-[9px] font-medium text-zinc-700">Customer Experience</span>
+                        <span class="px-2.5 py-1 bg-zinc-100 border border-zinc-200 rounded-md text-[9px] font-medium text-zinc-700">Operations Management</span>
+                        <span class="px-2.5 py-1 bg-zinc-100 border border-zinc-200 rounded-md text-[9px] font-medium text-zinc-700">Forecasting</span>
+                        <span class="px-2.5 py-1 bg-zinc-100 border border-zinc-200 rounded-md text-[9px] font-medium text-zinc-700">Perf. Tracking</span>
+                    </div>
+                </section>
+
+                <!-- Experience -->
+                <section class="mb-4"> 
+                    <h2 class="text-lg font-bold text-zinc-900 mb-3 border-b pb-1 border-zinc-100">Work Experience</h2>
+                    <div class="space-y-4"> 
+
+                        <!-- Role 1 -->
+                        <div class="glass-panel p-3 rounded-xl border border-zinc-100">
+                            <div class="flex items-center justify-between mb-1">
+                                <h3 class="text-sm font-bold text-zinc-900">Operations & Customer Excellence Manager</h3>
+                                <img src="Tools/exoticca.png" alt="Exoticca" class="h-4 opacity-80" onerror="this.style.display='none'">
+                            </div>
+                            <div class="flex justify-between text-[10px] font-bold text-emerald-600 mb-2"> 
+                                <span>Exoticca</span>
+                                <span class="text-zinc-500 font-normal">Jan 2025 - Present</span>
+                            </div>
+                            <p class="text-[10px] text-zinc-600 mb-2 italic">
+                                Own the Customer Excellence function (Ops + CX), defining strategy, priorities, and execution to translate customer insights into scalable systems.
+                            </p>
+                            <ul class="list-disc ml-4 space-y-1 text-[10px] text-zinc-700 leading-snug"> 
+                                <li>Defined and executed CX strategy aligned with company P&L, accountable for customer satisfaction across <strong class="font-bold">45,000+ annual trips</strong>, sustaining a <strong class="font-bold">40% Net Promoter Score (NPS)</strong> while scaling operations.</li>
+                                <li>Drove GTM strategy for key initiatives, including the LATAM market launch (w/ Despegar) and a payment infrastructure revamp (<strong class="font-bold">~€2.5M annual savings</strong>).</li>
+                                <li>Led AI-driven initiatives, including linking NPS to revenue (<strong class="font-bold">~€8M per 10 points</strong>), enabling leadership to prioritize investments based on financial return.</li>
+                                <li>Strategic owner on the internal SaaS-like provider management platform, used by <strong class="font-bold">100+ global partners</strong> to manage bookings at scale.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Role 2 -->
+                        <div class="glass-panel p-3 rounded-xl border border-zinc-100">
+                             <div class="flex items-center justify-between mb-1">
+                                <h3 class="text-sm font-bold text-zinc-900">Operations Analyst - Business Excellence</h3>
+                                <img src="Tools/exoticca.png" alt="Exoticca" class="h-4 opacity-80" onerror="this.style.display='none'">
+                            </div>
+                            <div class="flex justify-between text-[10px] font-bold text-zinc-500 mb-2"> 
+                                <span>Exoticca</span>
+                                <span class="text-zinc-500 font-normal">May 2022 – Jan 2025</span>
+                            </div>
+                            <ul class="list-disc ml-4 space-y-1 text-[10px] text-zinc-700 leading-snug"> 
+                                <li>Delivered over <strong class="font-bold">20 high-impact projects</strong> across Sales, Product, Finance, and Marketing to connect department goals and improve operational efficiency.</li>
+                                <li>Led a cost-reduction initiative optimizing flight purchasing, resulting in a <strong class="font-bold">€900,000 (~$1M) annual improvement</strong>.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Role 3 -->
+                        <div class="glass-panel p-3 rounded-xl border border-zinc-100">
+                             <div class="flex items-center justify-between mb-1">
+                                <h3 class="text-sm font-bold text-zinc-900">Senior Audit Associate</h3>
+                                <img src="Tools/PwC_Company_Logo.png" alt="PwC" class="h-5 opacity-80" onerror="this.style.display='none'">
+                            </div>
+                            <div class="flex justify-between text-[10px] font-bold text-zinc-500 mb-2"> 
+                                <span>PriceWaterhouseCoopers</span>
+                                <span class="text-zinc-500 font-normal">Sep 2019 - May 2022</span>
+                            </div>
+                            <p class="text-[10px] text-zinc-600 leading-snug"> 
+                                Conducted complex <strong class="font-bold">financial audits</strong> for diverse clients, assessed operational and financial risks, and ensured compliance with regulatory standards.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                 <section> 
+                    <h2 class="text-lg font-bold text-zinc-900 mb-3 border-b pb-1 border-zinc-100">Operations & AI Projects</h2> 
+                    <div class="grid grid-cols-2 gap-3"> 
+
+                        <!-- Project 1 -->
+                        <div class="glass-panel p-2.5 rounded-xl border border-zinc-100 flex flex-col h-full hover:border-zinc-300 transition-colors">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-xs font-bold text-zinc-900">AI Customer Experience Analyzer</h3>
+                                <a href="https://github.com/casanovaedu/AI-Customer-Experience-Analyzer" target="_blank" class="text-[9px] text-emerald-600 hover:underline whitespace-nowrap">GitHub Repo &rarr;</a>
+                            </div>
+                            <p class="text-[9px] text-zinc-600 mb-2 flex-grow leading-tight"> 
+                                Developed an interactive web app using NLP to analyze customer feedback and identify root causes for NPS gaps.</p>
+                           <div class="flex flex-wrap gap-1"> 
+                                <span class="bg-zinc-100 px-1.5 py-0.5 rounded text-[8px] font-bold text-zinc-500">AI Project</span>
+                                <span class="bg-zinc-100 px-1.5 py-0.5 rounded text-[8px] font-bold text-zinc-500">NPS</span>
+                                <span class="bg-zinc-100 px-1.5 py-0.5 rounded text-[8px] font-bold text-zinc-500">Python</span>
+                            </div>
+                        </div>
+
+                        <!-- Project 2 -->
+                        <div class="glass-panel p-2.5 rounded-xl border border-zinc-100 flex flex-col h-full hover:border-zinc-300 transition-colors">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-xs font-bold text-zinc-900">NPS in-App</h3>
+                                <a href="https://github.com/casanovaedu/nps-mockup" target="_blank" class="text-[9px] text-emerald-600 hover:underline whitespace-nowrap">GitHub Repo &rarr;</a>
+                            </div>
+                            <p class="text-[9px] text-zinc-600 mb-2 flex-grow leading-tight"> 
+                                Created an interactive HTML/CSS/JS mock-up visualizing dynamic in-app NPS survey logic and email integration.</p>
+                            <div class="flex flex-wrap gap-1"> 
+                                <span class="bg-zinc-100 px-1.5 py-0.5 rounded text-[8px] font-bold text-zinc-500">CSS</span>
+                                <span class="bg-zinc-100 px-1.5 py-0.5 rounded text-[8px] font-bold text-zinc-500">HTML</span>
+                                <span class="bg-zinc-100 px-1.5 py-0.5 rounded text-[8px] font-bold text-zinc-500">JS</span>
+                            </div>
+                        </div>
+
+                        <!-- Project 3 -->
+                        <div class="glass-panel p-2.5 rounded-xl border border-zinc-100 flex flex-col h-full hover:border-zinc-300 transition-colors">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-xs font-bold text-zinc-900">Trustpilot Scraper</h3>
+                                <a href="https://github.com/casanovaedu/trustpilot-analysis" target="_blank" class="text-[9px] text-emerald-600 hover:underline whitespace-nowrap">GitHub Repo &rarr;</a>
+                            </div>
+                            <p class="text-[9px] text-zinc-600 mb-2 flex-grow leading-tight"> 
+                                Built a tool to scrape, analyze, and tag reviews using NLP to understand customer issues and drive policy changes.</p>
+                            <div class="flex flex-wrap gap-1"> 
+                                <span class="bg-zinc-100 px-1.5 py-0.5 rounded text-[8px] font-bold text-zinc-500">AI Project</span>
+                                <span class="bg-zinc-100 px-1.5 py-0.5 rounded text-[8px] font-bold text-zinc-500">Python</span>
+                                <span class="bg-zinc-100 px-1.5 py-0.5 rounded text-[8px] font-bold text-zinc-500">Scraping</span>
+                            </div>
+                        </div>
+
+                        <!-- Project 4 -->
+                        <div class="glass-panel p-2.5 rounded-xl border border-zinc-100 flex flex-col h-full hover:border-zinc-300 transition-colors">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-xs font-bold text-zinc-900">Doc Builder PMS</h3>
+                                <a href="https://github.com/casanovaedu/providers-platform" target="_blank" class="text-[9px] text-emerald-600 hover:underline whitespace-nowrap">GitHub Repo &rarr;</a>
+                            </div>
+                            <p class="text-[9px] text-zinc-600 mb-2 flex-grow leading-tight"> 
+                                Architected and deployed a document generation tool within the core PMS, automating delivery of traveler docs.</p>
+                            <div class="flex flex-wrap gap-1"> 
+                                <span class="bg-zinc-100 px-1.5 py-0.5 rounded text-[8px] font-bold text-zinc-500">Automation</span>
+                                <span class="bg-zinc-100 px-1.5 py-0.5 rounded text-[8px] font-bold text-zinc-500">Integration</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+            </main>
+
+        </div>
+    </div>
+</body>
+</html>
